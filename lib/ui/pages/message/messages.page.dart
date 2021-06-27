@@ -1,6 +1,7 @@
 import 'package:contacts_bloc_app/bloc/messages/messages.actions.dart';
 import 'package:contacts_bloc_app/bloc/messages/messages.bloc.dart';
 import 'package:contacts_bloc_app/bloc/messages/messages.state.dart';
+import 'package:contacts_bloc_app/bloc/messages/messages.widget.dart';
 import 'package:contacts_bloc_app/enums/enums.dart';
 import 'package:contacts_bloc_app/model/contact.model.dart';
 import 'package:contacts_bloc_app/ui/pages/contacts/widgets/contact.info.widget.dart';
@@ -47,25 +48,7 @@ class MessagePage extends StatelessWidget {
        body: Column(
          children: [
            ContactInfoWidget(contact),
-           Expanded(
-             child: BlocBuilder<MessageBloc, MessageState>(
-               builder: (context, state){
-                 if(state.requestState == RequestState.LOADING){
-                   return Center(
-                     child: CircularProgressIndicator(),
-                   );
-                 } else if(state.requestState == RequestState.ERROR){
-                   return ErrorRetryMessage(errorMessage: state.errorMessage, onAction: (){
-                     context.read<MessageBloc>().add(state.currentMsgEvent);
-                   });
-                 } else if(state.requestState == RequestState.LOADED){
-                   return MessagesList(state.messages);
-                 } else{
-                   return Container();
-                 }
-               },
-             ),
-           ),
+           MessagesWidget(),
            MessagesForm(contact),
          ],
        ),

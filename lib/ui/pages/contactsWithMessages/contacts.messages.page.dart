@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContactWithMessages extends StatelessWidget {
-
+ScrollController  scrollController= new ScrollController();
 
   //const ContactWithMessages({Key key}) : super(key: key);
 
@@ -35,16 +35,18 @@ class ContactWithMessages extends StatelessWidget {
               return SizedBox(
                 height: 150,
                 child: ListView.builder(
+                  controller: scrollController,
                   itemBuilder: (context , state) =>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
                           onTap: (){
                             context.read<MessageBloc>().add(new MessagesByContacEvent(state.contacts[index]));
+                           scrollController.animateTo(index*200, duration: Duration(microseconds: 2000), curve:Curve.ease);
                           },
                           child: BlocBuilder<MessageBloc,MessageState>(
                             builder: (context, messageState) => Container(
-                              width: 100,
+                              width: 150,
                               padding: EdgeInsets.all(16),
                               child: Column(children: [
                                 CircleAvatar(child: Text('${state.contacts[index].profile}') ,),

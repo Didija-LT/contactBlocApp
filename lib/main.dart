@@ -8,6 +8,7 @@ import 'package:contacts_bloc_app/enums/enums.dart';
 import 'package:contacts_bloc_app/respositories/contacts.repo.dart';
 import 'package:contacts_bloc_app/respositories/messages.repository.dart';
 import 'package:contacts_bloc_app/ui/pages/contacts/contacts.page.dart';
+import 'package:contacts_bloc_app/ui/pages/contactsWithMessages/contacts.messages.page.dart';
 import 'package:contacts_bloc_app/ui/pages/message/messages.page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,26 +26,30 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+            create: (context) => MessageBloc(
+                initialeState: MessageState.initialeState(),
+                messageRepository: GetIt.instance<MessageRepository>(),
+                messageBloc: context.read<MessageBloc>()
+            ),),
         BlocProvider(create: (context) => ContactBloc(
             initialState:  ContactsState(
                   contacts: [],
                   requestState: RequestState.NONE,
                   errorMessage: '',
                   currentEvent: new LoadStudentsEvent()),
-            contactsRepository: GetIt.instance<ContactsRepository>())
-          ,),
-         BlocProvider(
-           create: (context) => MessageBloc(
-           initialeState: MessageState.initialeState(),
-           messageRepository: GetIt.instance<MessageRepository>(),
-               messageBloc: context.read<MessageBloc>()))
+                  contactsRepository: GetIt.instance<ContactsRepository>(),
+                  messageBloc: context.read<MessageBloc>()
+          ),),
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.deepOrange),
         routes: {
           '/contacts':(context)=>ContactPage(),
-          '/message':(context)=>MessagePage()
+          '/message':(context)=>MessagePage(),
+          '/contactsWithmessage':(context)=>ContactWithMessages(),
         },
         initialRoute: '/contacts',
       ),

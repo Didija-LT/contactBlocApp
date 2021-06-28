@@ -5,6 +5,7 @@ import 'package:contacts_bloc_app/bloc/contacts.state.dart';
 import 'package:contacts_bloc_app/bloc/messages/messages.bloc.dart';
 import 'package:contacts_bloc_app/bloc/messages/messages.state.dart';
 import 'package:contacts_bloc_app/enums/enums.dart';
+import 'package:contacts_bloc_app/model/contact.model.dart';
 import 'package:contacts_bloc_app/respositories/contacts.repo.dart';
 import 'package:contacts_bloc_app/respositories/messages.repository.dart';
 import 'package:contacts_bloc_app/ui/pages/contacts/contacts.page.dart';
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
                   contacts: [],
                   requestState: RequestState.NONE,
                   errorMessage: '',
-                  currentEvent: new LoadStudentsEvent()),
+                  currentEvent: new LoadStudentsEvent(),
+                  currentContact: new Contact()),
                   contactsRepository: GetIt.instance<ContactsRepository>(),
                   messageBloc: context.read<MessageBloc>()
           ),),
@@ -49,7 +51,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/contacts':(context)=>ContactPage(),
           '/message':(context)=>MessagePage(),
-          '/contactsWithmessage':(context)=>ContactWithMessages(),
+          '/contactsWithMessage':(context)=>ContactWithMessages(),
         },
         initialRoute: '/contacts',
       ),

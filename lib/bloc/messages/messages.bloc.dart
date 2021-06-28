@@ -29,9 +29,9 @@ class MessageBloc extends Bloc<MessageEvent, MessageState>{
         Message message = await messageRepository.addNewMessage(event.payload);
         List<Message> data = [...state.messages];
         data.add(message);
-        yield MessageState(messages: data, requestState: RequestState.LOADED, errorMessage: '', currentMsgEvent: event,selectedMessages: state.selectedMessages , currentContact: event.payload);
+        yield MessageState(messages: data, requestState: RequestState.LOADED, errorMessage: '', currentMsgEvent: event,selectedMessages: state.selectedMessages , currentContact: state.currentContact);
       }catch(e){
-        yield MessageState(messages: state.messages, requestState: RequestState.ERROR, errorMessage: e.toString(), currentMsgEvent: event,selectedMessages: state.selectedMessages, currentContact: event.payload );
+        yield MessageState(messages: state.messages, requestState: RequestState.ERROR, errorMessage: e.toString(), currentMsgEvent: event,selectedMessages: state.selectedMessages, currentContact: state.currentContact );
       }
     }
     else if(event is SelectMessageEvent){

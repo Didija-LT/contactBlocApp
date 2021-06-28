@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:html';
 
 import 'package:contacts_bloc_app/bloc/messages/messages.actions.dart';
 import 'package:contacts_bloc_app/enums/enums.dart';
@@ -21,5 +22,5 @@ class MessageState{
 
   MessageState.initialeState() : requestState = RequestState.NONE,
         messages = [], errorMessage = '', selectedMessages=[]  ,
-       currentMsgEvent = null , currentContact= null ;
+       currentMsgEvent = null , currentContact= new Contact() ;
 }

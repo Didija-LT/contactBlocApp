@@ -9,8 +9,8 @@ class ContactHorizontalItemWidget extends StatelessWidget {
  // const ContactHorizontalItemWidget({Key key}) : super(key: key);
  Contact  contact;
  int index;
- ScrollController  scrollController= new ScrollController();
- ContactHorizontalItemWidget(this.contact , this.index);
+ ScrollController  scrollController;
+ ContactHorizontalItemWidget(this.contact , this.index, this.scrollController);
   @override
   Widget build(BuildContext context) {
     return Padding(
